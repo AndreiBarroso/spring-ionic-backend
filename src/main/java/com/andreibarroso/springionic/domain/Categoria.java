@@ -1,6 +1,5 @@
 package com.andreibarroso.springionic.domain;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -11,7 +10,10 @@ import java.io.Serializable;
 
 
 @Data
+@Entity
 public class Categoria  implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
