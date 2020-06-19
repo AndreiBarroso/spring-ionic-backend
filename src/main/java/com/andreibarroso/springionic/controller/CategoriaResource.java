@@ -2,9 +2,11 @@ package com.andreibarroso.springionic.controller;
 
 
 import com.andreibarroso.springionic.domain.Categoria;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.andreibarroso.springionic.repositories.CategoriaRepository;
+import com.andreibarroso.springionic.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +15,18 @@ import java.util.List;
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
+    @Autowired
+    private CategoriaService categoriaService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> listar () {
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
-        Categoria novacat = new Categoria(1, "informatica");
-        Categoria novacat2 = new Categoria(2, "escritorio");
+    @RequestMapping (value = "/{id}", method=RequestMethod.GET)
+    public ResponseEntity<?> find (@PathVariable Integer id) {
 
-        List<Categoria> lista = new ArrayList<>();
-        lista.add(novacat);
-        lista.add(novacat2);
+        Categoria obj = categoriaService.buscar(id);
 
-        return lista;
+        return ResponseEntity.ok().body(obj);
     }
+
 }
