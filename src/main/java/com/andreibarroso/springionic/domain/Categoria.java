@@ -20,4 +20,9 @@ public class Categoria  implements Serializable {
     private Integer id;
     private String nome;
 
+    public Categoria(Integer id, String nome) {
+        this.nome = nome;
+        this.id = id;
+
+    }
 }
