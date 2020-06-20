@@ -2,10 +2,7 @@ package com.andreibarroso.springionic.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -22,14 +19,20 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
 
+    @ManyToOne
+    @JoinColumn(name = "cidade_id")
     private Cidade cidade;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
 
     public Endereco () {
 
     }
 
-    public Endereco(Cidade cidade,Integer id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente) {
+    public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente,Cidade cidade) {
         this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;

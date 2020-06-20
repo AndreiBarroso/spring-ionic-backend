@@ -4,10 +4,7 @@ import com.andreibarroso.springionic.domain.enums.TipoCliente;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,8 +27,12 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
+
+    @OneToMany(mappedBy = "cliente")
     private final List<Endereco> enderecos = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "TELEFONE")
     private  final Set<String> telefones = new HashSet<>();
 
     public Cliente () {

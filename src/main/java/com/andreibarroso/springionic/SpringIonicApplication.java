@@ -1,13 +1,8 @@
 package com.andreibarroso.springionic;
 
-import com.andreibarroso.springionic.domain.Categoria;
-import com.andreibarroso.springionic.domain.Cidade;
-import com.andreibarroso.springionic.domain.Estado;
-import com.andreibarroso.springionic.domain.Produto;
-import com.andreibarroso.springionic.repositories.CategoriaRepository;
-import com.andreibarroso.springionic.repositories.CidadeRepository;
-import com.andreibarroso.springionic.repositories.EstadoRepository;
-import com.andreibarroso.springionic.repositories.ProdutoRepository;
+import com.andreibarroso.springionic.domain.*;
+import com.andreibarroso.springionic.domain.enums.TipoCliente;
+import com.andreibarroso.springionic.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,12 +17,16 @@ public class SpringIonicApplication implements CommandLineRunner {
 	private ProdutoRepository produtoRepository;
 	private EstadoRepository estadoRepository;
 	private CidadeRepository cidadeRepository;
+	private ClienteRepository clienteRepository;
+	private EnderecoRepository enderecoRepository;
 
-	public SpringIonicApplication (CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, EstadoRepository estadoRepository, CidadeRepository cidadeRepository) {
+	public SpringIonicApplication (ClienteRepository clienteRepository,EnderecoRepository enderecoRepository,CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, EstadoRepository estadoRepository, CidadeRepository cidadeRepository) {
 		this.categoriaRepository = categoriaRepository;
 		this.produtoRepository = produtoRepository;
 		this.cidadeRepository = cidadeRepository;
 		this.estadoRepository = estadoRepository;
+		this.clienteRepository = clienteRepository;
+		this.enderecoRepository = enderecoRepository;
 	}
 
 	public static void main(String[] args) {
@@ -69,5 +68,17 @@ public class SpringIonicApplication implements CommandLineRunner {
 		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+		Cliente cli1 = new Cliente(null, "maria", "maria@gmail.com", "12345678909", TipoCliente.PESSOAFISICA);
+
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "938329098"));
+
+		Endereco e1 = new Endereco(null, "Rua flores", "300", "Apto 303", "Jardim", "38220834", cli1, cidade1);
+		Endereco e2 = new Endereco(null, "Rua sargento", "300", "Apto 4023", "Jardim", "38220834", cli1, cidade2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 }
