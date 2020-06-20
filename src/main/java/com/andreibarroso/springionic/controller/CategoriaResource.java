@@ -5,9 +5,11 @@ import com.andreibarroso.springionic.domain.Categoria;
 import com.andreibarroso.springionic.repositories.CategoriaRepository;
 import com.andreibarroso.springionic.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +23,21 @@ public class CategoriaResource {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    @RequestMapping (value = "/{id}", method=RequestMethod.GET)
-    public ResponseEntity<?> find (@PathVariable Integer id) {
+    @GetMapping (value = "/{id}")
+    public ResponseEntity<?> buscar (@PathVariable Integer id) {
 
-        Categoria obj = categoriaService.buscar(id);
+        Categoria obj = categoriaService.find(id);
 
         return ResponseEntity.ok().body(obj);
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED) 
+    public Categoria adicionar (@Valid @RequestBody Categoria categoria) {
+        return categoriaService.salvar(categoria);
+    }
+
+
 }
+
+

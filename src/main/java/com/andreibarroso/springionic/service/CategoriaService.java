@@ -1,6 +1,7 @@
 package com.andreibarroso.springionic.service;
 
 import com.andreibarroso.springionic.domain.Categoria;
+import com.andreibarroso.springionic.exceptions.ObjectNotFoundException;
 import com.andreibarroso.springionic.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,15 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
 
-    public Categoria buscar (Integer id) {
+    public Categoria find(Integer id) {
         Optional<Categoria> obj = categoriaRepository.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+    }
 
-        return  obj.orElse(null);
+    public Categoria salvar(Categoria categoria) {
+        Optional<Categoria> novaCategoria = categoriaRepository.findById(categoria.getId());
+        return categoriaRepository.save(categoria);
     }
 }
+

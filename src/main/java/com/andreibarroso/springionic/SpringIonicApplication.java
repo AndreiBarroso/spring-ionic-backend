@@ -28,8 +28,9 @@ public class SpringIonicApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Categoria cat1 = new Categoria(null, "informatica");
-		Categoria cat2 = new Categoria(null, "escritorio");
+
+		Categoria cat1 = new Categoria(null, "escritorio");
+		Categoria cat2 = new Categoria(null, "informatica");
 
 		Produto p1 = new Produto(null, "COMPUTADOR", 200.00);
 		Produto p2 = new Produto(null, "IMPRESSORA", 300.00);
