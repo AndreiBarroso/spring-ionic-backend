@@ -1,6 +1,7 @@
 package com.andreibarroso.springionic.domain;
 
 import com.andreibarroso.springionic.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -27,7 +28,7 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private final List<Endereco> enderecos = new ArrayList<>();
 
