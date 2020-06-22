@@ -23,8 +23,9 @@ public class SpringIonicApplication implements CommandLineRunner {
 	private EnderecoRepository enderecoRepository;
 	private PedidoRepository pedidoRepository;
 	private PagamentoRepository pagamentoRepository;
+	private ItemPedidoRepository itemPedidoRepository;
 
-	public SpringIonicApplication (PagamentoRepository pagamentoRepository, PedidoRepository pedidoRepository, ClienteRepository clienteRepository,EnderecoRepository enderecoRepository,CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, EstadoRepository estadoRepository, CidadeRepository cidadeRepository) {
+	public SpringIonicApplication (ItemPedidoRepository itemPedidoRepository,PagamentoRepository pagamentoRepository, PedidoRepository pedidoRepository, ClienteRepository clienteRepository,EnderecoRepository enderecoRepository,CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, EstadoRepository estadoRepository, CidadeRepository cidadeRepository) {
 		this.categoriaRepository = categoriaRepository;
 		this.produtoRepository = produtoRepository;
 		this.cidadeRepository = cidadeRepository;
@@ -33,6 +34,7 @@ public class SpringIonicApplication implements CommandLineRunner {
 		this.enderecoRepository = enderecoRepository;
 		this.pagamentoRepository = pagamentoRepository;
 		this.pedidoRepository = pedidoRepository;
+		this.itemPedidoRepository = itemPedidoRepository;
 	}
 
 	public static void main(String[] args) {
@@ -91,6 +93,7 @@ public class SpringIonicApplication implements CommandLineRunner {
 
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
 		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+		Pedido ped3 = new Pedido(null, sdf.parse("11/10/2017 19:35"), cli1, e2);
 
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
@@ -101,6 +104,19 @@ public class SpringIonicApplication implements CommandLineRunner {
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 1, 2000.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 0.00, 1, 2000.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
 	}
 }
