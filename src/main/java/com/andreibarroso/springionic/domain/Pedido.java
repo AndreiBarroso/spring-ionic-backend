@@ -1,6 +1,8 @@
 package com.andreibarroso.springionic.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +16,8 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date instante;
 
     @OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")

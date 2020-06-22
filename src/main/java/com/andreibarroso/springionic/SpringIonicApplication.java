@@ -99,7 +99,7 @@ public class SpringIonicApplication implements CommandLineRunner {
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
 
-		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.QUITADO, ped2, sdf.parse("20/10/2017 00:00"),  sdf.parse("22/10/2017 00:00"));
 		ped2.setPagamento(pagto2);
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
