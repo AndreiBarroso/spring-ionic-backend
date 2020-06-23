@@ -3,7 +3,7 @@ package com.andreibarroso.springionic.controller;
 
 import com.andreibarroso.springionic.domain.Categoria;
 import com.andreibarroso.springionic.repositories.CategoriaRepository;
-import com.andreibarroso.springionic.service.CategoriaService;
+import com.andreibarroso.springionic.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

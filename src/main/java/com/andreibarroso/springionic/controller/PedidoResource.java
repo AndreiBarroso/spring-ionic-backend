@@ -3,7 +3,7 @@ package com.andreibarroso.springionic.controller;
 
 import com.andreibarroso.springionic.domain.Pedido;
 import com.andreibarroso.springionic.repositories.PedidoRepository;
-import com.andreibarroso.springionic.service.PedidoService;
+import com.andreibarroso.springionic.services.PedidoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

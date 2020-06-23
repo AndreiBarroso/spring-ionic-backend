@@ -1,7 +1,6 @@
-package com.andreibarroso.springionic.service;
+package com.andreibarroso.springionic.services;
 
 
-import com.andreibarroso.springionic.domain.Categoria;
 import com.andreibarroso.springionic.domain.Cliente;
 import com.andreibarroso.springionic.exceptions.ObjectNotFoundException;
 import com.andreibarroso.springionic.repositories.ClienteRepository;

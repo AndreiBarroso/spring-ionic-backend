@@ -1,4 +1,4 @@
-package com.andreibarroso.springionic.service;
+package com.andreibarroso.springionic.services;
 
 import com.andreibarroso.springionic.domain.Categoria;
 import com.andreibarroso.springionic.exceptions.DateIntegrityException;
@@ -6,7 +6,6 @@ import com.andreibarroso.springionic.exceptions.ObjectNotFoundException;
 import com.andreibarroso.springionic.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

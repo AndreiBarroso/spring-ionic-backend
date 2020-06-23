@@ -2,7 +2,7 @@ package com.andreibarroso.springionic.controller;
 
 import com.andreibarroso.springionic.domain.Cliente;
 import com.andreibarroso.springionic.repositories.ClienteRepository;
-import com.andreibarroso.springionic.service.ClienteService;
+import com.andreibarroso.springionic.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
