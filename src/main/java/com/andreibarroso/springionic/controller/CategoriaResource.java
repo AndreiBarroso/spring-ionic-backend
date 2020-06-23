@@ -31,7 +31,7 @@ public class CategoriaResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) 
-    public Categoria adicionar (@Valid @RequestBody Categoria categoria) {
+    public Categoria adicionar (@RequestBody Categoria categoria) {
         return categoriaService.salvar(categoria);
     }
 
