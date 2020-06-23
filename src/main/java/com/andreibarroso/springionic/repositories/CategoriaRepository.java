@@ -2,6 +2,7 @@ package com.andreibarroso.springionic.repositories;
 
 
 import com.andreibarroso.springionic.domain.Categoria;
+import com.andreibarroso.springionic.dto.CategoriaDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
