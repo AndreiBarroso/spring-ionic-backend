@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -55,6 +54,14 @@ public class CategoriaResource {
         return ResponseEntity.ok(categoria);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete (@PathVariable Integer id){
+        if(!categoriaRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        categoriaService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
 
