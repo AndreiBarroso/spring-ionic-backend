@@ -23,11 +23,6 @@ public class CategoriaService {
     }
 
     public Categoria salvar(Categoria categoria) {
-        Categoria categoria1 = categoriaRepository.findByid(categoria.getId());
-
-        if (categoria1 != null && !categoria1.equals(categoria)) {
-            throw new ObjectNotFoundException("Já existe uma categproa cadastrado com este id.");
-        }
         return categoriaRepository.save(categoria);
     }
 }
