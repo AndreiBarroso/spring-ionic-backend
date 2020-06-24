@@ -6,10 +6,10 @@ import com.andreibarroso.springionic.dto.CategoriaDTO;
 import com.andreibarroso.springionic.repositories.CategoriaRepository;
 import com.andreibarroso.springionic.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,14 +27,14 @@ public class CategoriaResource {
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> listarTodos () {
         List<Categoria> list = categoriaService.findAll();
-        List<CategoriaDTO> listDto = list.stream().map(cat -> new CategoriaDTO(cat)).collect(Collectors.toList());
+        List<CategoriaDTO> listDto = list.stream()
+                .map(CategoriaDTO::new)
+                .collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
 
     }
-
-
     @GetMapping (value = "/{id}")
-    public ResponseEntity<?> buscar (@PathVariable Integer id) {
+    public ResponseEntity<Categoria> buscar (@PathVariable Integer id) {
 
         Categoria obj = categoriaService.find(id);
 
@@ -67,6 +67,20 @@ public class CategoriaResource {
         categoriaService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<CategoriaDTO>> findPage (
+            @RequestParam (value = "page", defaultValue="0") Integer page,
+            @RequestParam (value = "linesPerPage", defaultValue="24")Integer linesPerPage,
+            @RequestParam (value = "orderBy", defaultValue="nome")String orderBy,
+            @RequestParam (value = "direction", defaultValue="ASC")String direction) {
+        Page<Categoria> list = categoriaService.findPage(page, linesPerPage, orderBy, direction);
+        Page<CategoriaDTO> listDto = list.map(CategoriaDTO::new);
+
+        return ResponseEntity.ok().body(listDto);
+
+    }
+
 
 }
 
