@@ -2,7 +2,6 @@ package com.andreibarroso.springionic.domain;
 
 import com.andreibarroso.springionic.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;

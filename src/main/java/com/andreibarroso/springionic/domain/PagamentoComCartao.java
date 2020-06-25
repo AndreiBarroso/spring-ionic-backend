@@ -1,7 +1,6 @@
 package com.andreibarroso.springionic.domain;
 
 import com.andreibarroso.springionic.domain.enums.EstadoPagamento;
-import lombok.Data;
 
 import javax.persistence.Entity;
 

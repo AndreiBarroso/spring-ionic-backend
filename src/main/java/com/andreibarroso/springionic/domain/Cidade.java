@@ -1,7 +1,6 @@
 package com.andreibarroso.springionic.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import lombok.Data;
 
 import javax.persistence.*;

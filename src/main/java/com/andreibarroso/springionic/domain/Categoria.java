@@ -1,10 +1,13 @@
 package com.andreibarroso.springionic.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,10 @@ public class Categoria  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotNull
+    @NotBlank(message = "Preenchimento obrigatório")
+    @Size(max=80, message="tamanho deve ter entre 5 a 80 caracteres")
     private String nome;
 
     @ManyToMany(mappedBy = "categorias")

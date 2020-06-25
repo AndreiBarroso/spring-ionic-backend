@@ -1,9 +1,6 @@
 package com.andreibarroso.springionic.domain;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
