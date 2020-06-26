@@ -38,14 +38,24 @@ class CategoriaServiceTest {
     }
 
     @Test
-    public void testaListar () {
+    public void testListar () {
         List<Categoria> resultados = categoriaService.findAll();
         Mockito.verify(categoriaRepository).findAll();
     }
 
     @Test
-    public void testaBuscarExistente () {
+    public void testBuscarExistente () {
         Mockito.when(categoriaRepository.findById(1)).thenReturn(Optional.of(new Categoria()));
         Categoria resultado = categoriaService.find(1);
     }
+
+    @Test
+    public void testDeletarCategoria () {
+        Mockito.when(categoriaRepository.findById(1)).thenReturn(Optional.of(new Categoria()));
+        categoriaService.deletar(1);
+        verify(categoriaRepository, times(1)).deleteById(1);
+
+    }
+
+
 }
