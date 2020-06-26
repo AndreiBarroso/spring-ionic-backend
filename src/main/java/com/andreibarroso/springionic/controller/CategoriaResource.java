@@ -27,16 +27,6 @@ public class CategoriaResource {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-
-    @GetMapping
-    public ResponseEntity<List<CategoriaDTO>> listarTodos () {
-        List<Categoria> list = categoriaService.findAll();
-        List<CategoriaDTO> listDto = list.stream()
-                .map(CategoriaDTO::new)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDto);
-
-    }
     @GetMapping (value = "/{id}")
     public ResponseEntity<Categoria> buscar (@PathVariable Integer id) {
 
@@ -75,6 +65,16 @@ public class CategoriaResource {
         }
         categoriaService.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoriaDTO>> listarTodos () {
+        List<Categoria> list = categoriaService.findAll();
+        List<CategoriaDTO> listDto = list.stream()
+                .map(CategoriaDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+
     }
 
     @GetMapping(value = "/page")

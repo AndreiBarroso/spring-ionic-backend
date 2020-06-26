@@ -2,8 +2,10 @@ package com.andreibarroso.springionic.exceptions;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class StandardError {
+public class StandardError implements Serializable {
 
     private Integer status;
     private String msg;
