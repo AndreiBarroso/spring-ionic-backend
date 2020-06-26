@@ -2,10 +2,10 @@ package com.andreibarroso.springionic.domain;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -23,7 +23,7 @@ public class Categoria  implements Serializable {
 
     @NotNull
     @NotBlank(message = "Preenchimento obrigatório")
-    @Size(max=80, message="tamanho deve ter entre 5 a 80 caracteres")
+    @Length(min= 5, max=80, message="tamanho deve ter entre 5 a 80 caracteres")
     private String nome;
 
     @ManyToMany(mappedBy = "categorias")

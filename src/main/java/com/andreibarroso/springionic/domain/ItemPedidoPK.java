@@ -1,11 +1,14 @@
 package com.andreibarroso.springionic.domain;
 
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Embeddable
+@EqualsAndHashCode
 public class ItemPedidoPK implements Serializable {
 
     @ManyToOne

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
@@ -28,7 +30,7 @@ public class ClienteResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente novoCliente (@RequestBody Cliente cliente) {
+    public Cliente novoCliente (@Valid  @RequestBody Cliente cliente) {
         return clienteService.newCliente(cliente);
     }
 

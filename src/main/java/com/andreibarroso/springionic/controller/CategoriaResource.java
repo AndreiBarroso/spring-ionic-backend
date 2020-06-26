@@ -46,8 +46,7 @@ public class CategoriaResource {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> insert (@Valid @RequestBody CategoriaDTO objDto) {
+    public ResponseEntity<Void> insert (@RequestBody @Valid CategoriaDTO objDto) {
 
         Categoria obj = categoriaService.fromDTO(objDto);
         obj = categoriaService.salvar(obj);

@@ -22,9 +22,9 @@ public class Cliente implements Serializable {
     @Id
     private Integer id;
     private String nome;
-    @Email
+    @Email(message = "Coloque um e-mail válido")
     private String email;
-    @CPF
+    @CPF(message = "Coloque um Cpf ou Cnpj válido")
     private String cpfOuCnpj;
     private Integer tipo;
 

@@ -6,6 +6,7 @@ import com.andreibarroso.springionic.exceptions.ObjectNotFoundException;
 import com.andreibarroso.springionic.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Service
@@ -23,7 +24,7 @@ public class ClienteService {
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
     }
 
-   public Cliente newCliente (Cliente cliente) {
+   public Cliente newCliente (@Valid Cliente cliente) {
         return clienteRepository.save(cliente);
    }
 
