@@ -2,6 +2,7 @@ package com.andreibarroso.springionic.controller;
 
 import com.andreibarroso.springionic.domain.Cliente;
 import com.andreibarroso.springionic.dto.ClienteDTO;
+import com.andreibarroso.springionic.dto.ClienteNewDTO;
 import com.andreibarroso.springionic.repositories.ClienteRepository;
 import com.andreibarroso.springionic.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,10 @@ public class ClienteResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert (@RequestBody @Valid ClienteDTO objDto) {
+    public ResponseEntity<Void> insert (@Valid @RequestBody ClienteNewDTO objDto) {
 
         Cliente obj = clienteService.fromDTO(objDto);
-        obj = clienteService.salvar(obj);
+        obj = clienteService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
@@ -60,7 +61,7 @@ public class ClienteResource {
         if(!clienteRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        clienteService.deletar(id);
+        clienteService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

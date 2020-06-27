@@ -1,10 +1,10 @@
 package com.andreibarroso.springionic.dto;
 
 import com.andreibarroso.springionic.domain.Cliente;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class ClienteDTO implements Serializable {
@@ -12,7 +12,7 @@ public class ClienteDTO implements Serializable {
     private Integer id;
 
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(min = 5, max = 120, message = "o  tamanho deve ser entre 5 a 120 caracteres")
+    @Size(min = 5, max = 120, message = "o  tamanho deve ser entre 5 a 120 caracteres")
     private String nome;
 
     @NotEmpty(message = "Preenchimento obrigatório")

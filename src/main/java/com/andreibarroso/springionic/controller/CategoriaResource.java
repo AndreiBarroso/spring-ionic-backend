@@ -36,10 +36,10 @@ public class CategoriaResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert (@RequestBody @Valid CategoriaDTO objDto) {
+    public ResponseEntity<Void> criar (@RequestBody @Valid CategoriaDTO objDto) {
 
         Categoria obj = categoriaService.fromDTO(objDto);
-        obj = categoriaService.salvar(obj);
+        obj = categoriaService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
@@ -53,7 +53,7 @@ public class CategoriaResource {
         }
         Categoria obj = categoriaService.fromDTO(objDto);
         obj.setId(id);
-        obj = categoriaService.salvar(obj);
+        obj = categoriaService.update(obj);
 
         return ResponseEntity.ok(obj);
     }
@@ -63,7 +63,7 @@ public class CategoriaResource {
         if(!categoriaRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        categoriaService.deletar(id);
+        categoriaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

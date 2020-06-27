@@ -5,7 +5,6 @@ import com.andreibarroso.springionic.dto.CategoriaDTO;
 import com.andreibarroso.springionic.exceptions.DateIntegrityException;
 import com.andreibarroso.springionic.exceptions.ObjectNotFoundException;
 import com.andreibarroso.springionic.repositories.CategoriaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,11 +29,18 @@ public class CategoriaService {
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
     }
 
-    public Categoria salvar(Categoria categoria) {
+    public Categoria insert(Categoria categoria) {
         return categoriaRepository.save(categoria);
     }
 
-    public void deletar (Integer id) {
+    public Categoria update(Categoria obj) {
+        Categoria newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return categoriaRepository.save(newObj);
+    }
+
+
+    public void delete (Integer id) {
         find(id);
         try {
             categoriaRepository.deleteById(id);
@@ -64,6 +70,12 @@ public class CategoriaService {
         return  new Categoria(objDto.getId(), objDto.getNome());
 
     }
+
+
+    private void updateData(Categoria newObj, Categoria obj) {
+        newObj.setNome(obj.getNome());
+    }
+
 }
 
 

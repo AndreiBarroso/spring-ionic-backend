@@ -31,8 +31,8 @@ class CategoriaServiceTest {
     public void testSalvarComSucesso () {
         Categoria categoria = new Categoria();
         categoria.setId(1);
-        categoria.setNome("Escritorio");
-        categoriaService.salvar(categoria);
+        categoria.setNome("escritorio");
+        categoriaService.insert(categoria);
         verify(categoriaRepository, times(1)).save(categoria);
 
     }
@@ -52,7 +52,7 @@ class CategoriaServiceTest {
     @Test
     public void testDeletarCategoria () {
         Mockito.when(categoriaRepository.findById(1)).thenReturn(Optional.of(new Categoria()));
-        categoriaService.deletar(1);
+        categoriaService.delete(1);
         verify(categoriaRepository, times(1)).deleteById(1);
 
     }
