@@ -1,8 +1,10 @@
 package com.andreibarroso.springionic.services.validation;
 
+import com.andreibarroso.springionic.domain.Cliente;
 import com.andreibarroso.springionic.domain.enums.TipoCliente;
 import com.andreibarroso.springionic.dto.ClienteNewDTO;
 import com.andreibarroso.springionic.exceptions.FieldMessage;
+import com.andreibarroso.springionic.repositories.ClienteRepository;
 import com.andreibarroso.springionic.services.validation.utils.BR;
 
 import javax.validation.ConstraintValidator;
@@ -11,6 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+
+
+    private ClienteRepository clienteRepository;
+
+    public ClienteInsertValidator(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
 
 
     @Override
@@ -30,6 +39,11 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
             list.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
         }
 
+        Cliente aux = clienteRepository.findByEmail(objDto.getEmail());
+        if(aux != null) {
+            list.add(new FieldMessage("email","E-mail já existente"));
+
+        }
 
         for (FieldMessage e : list) {
             context.disableDefaultConstraintViolation();
