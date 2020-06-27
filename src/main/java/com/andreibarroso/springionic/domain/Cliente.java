@@ -25,7 +25,6 @@ public class Cliente implements Serializable {
 
 
     @Column(unique = true)
-    @Email(message = "Coloque um e-mail válido")
     private String email;
     private String cpfOuCnpj;
     private Integer tipo;

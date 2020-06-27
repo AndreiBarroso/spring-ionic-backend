@@ -45,15 +45,13 @@ public class ClienteResource {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizar (@Valid @PathVariable Integer id, @RequestBody ClienteDTO objDto) {
-        if (!clienteRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> atualizar (@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {
+
         Cliente obj = clienteService.fromDTO(objDto);
         obj.setId(id);
         obj = clienteService.update(obj);
 
-        return ResponseEntity.ok(obj);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
