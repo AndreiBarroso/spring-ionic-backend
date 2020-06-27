@@ -24,7 +24,6 @@ public class Cliente implements Serializable {
     private String nome;
     @Email(message = "Coloque um e-mail válido")
     private String email;
-    @CPF(message = "Coloque um Cpf ou Cnpj válido")
     private String cpfOuCnpj;
     private Integer tipo;
 
