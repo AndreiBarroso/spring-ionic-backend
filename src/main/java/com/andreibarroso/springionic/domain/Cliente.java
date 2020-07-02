@@ -21,6 +21,7 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
+
     private String nome;
 
 
@@ -44,7 +45,7 @@ public class Cliente implements Serializable {
 
     }
 
-    public Cliente(Integer id, String nome, @Email String email, @CPF String cpfOuCnpj, TipoCliente tipo) {
+    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
         this.id = id;
         this.nome = nome;
         this.email = email;

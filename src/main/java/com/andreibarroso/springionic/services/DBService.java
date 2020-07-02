@@ -4,6 +4,7 @@ import com.andreibarroso.springionic.domain.*;
 import com.andreibarroso.springionic.domain.enums.EstadoPagamento;
 import com.andreibarroso.springionic.domain.enums.TipoCliente;
 import com.andreibarroso.springionic.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -13,30 +14,27 @@ import java.util.Arrays;
 @Service
 public class DBService {
 
+	@Autowired
 	private CategoriaRepository categoriaRepository;
+	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
 	private EstadoRepository estadoRepository;
+	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
 	private ClienteRepository clienteRepository;
+	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
 	private PedidoRepository pedidoRepository;
+	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 
-	public DBService (ItemPedidoRepository itemPedidoRepository,PagamentoRepository pagamentoRepository, PedidoRepository pedidoRepository, ClienteRepository clienteRepository,EnderecoRepository enderecoRepository,CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, EstadoRepository estadoRepository, CidadeRepository cidadeRepository) {
-		this.categoriaRepository = categoriaRepository;
-		this.produtoRepository = produtoRepository;
-		this.cidadeRepository = cidadeRepository;
-		this.estadoRepository = estadoRepository;
-		this.clienteRepository = clienteRepository;
-		this.enderecoRepository = enderecoRepository;
-		this.pagamentoRepository = pagamentoRepository;
-		this.pedidoRepository = pedidoRepository;
-		this.itemPedidoRepository = itemPedidoRepository;
-	}
+	public void instantiateTestDatabase() throws ParseException {
 
-
-	public void instantiateTestDataBase() throws ParseException {
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
 		Categoria cat3 = new Categoria(null, "Cama mesa e banho");
@@ -58,11 +56,6 @@ public class DBService {
 		Produto p11 = new Produto(null, "Shampoo", 90.00);
 
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2));
-
-		p1.getCategorias().addAll(Arrays.asList(cat1));
-		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategorias().addAll(Arrays.asList(cat1));
 		cat2.getProdutos().addAll(Arrays.asList(p2, p4));
 		cat3.getProdutos().addAll(Arrays.asList(p5, p6));
 		cat4.getProdutos().addAll(Arrays.asList(p1, p2, p3, p7));
@@ -138,6 +131,5 @@ public class DBService {
 		p3.getItens().addAll(Arrays.asList(ip2));
 
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
-
 	}
 }
