@@ -10,6 +10,7 @@ import com.andreibarroso.springionic.repositories.ClienteRepository;
 import com.andreibarroso.springionic.repositories.ItemPedidoRepository;
 import com.andreibarroso.springionic.repositories.PagamentoRepository;
 import com.andreibarroso.springionic.repositories.PedidoRepository;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,13 +32,16 @@ public class PedidoService {
 
     private ClienteService clienteService;
 
-    public PedidoService (ClienteService clienteService, ItemPedidoRepository itemPedidoRepository, ProdutoService produtoService, BoletoService boletoService, PedidoRepository pedidoRepository, PagamentoRepository pagamentoRepository) {
+    private EmailService emailService;
+
+    public PedidoService (EmailService emailService, ClienteService clienteService, ItemPedidoRepository itemPedidoRepository, ProdutoService produtoService, BoletoService boletoService, PedidoRepository pedidoRepository, PagamentoRepository pagamentoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.boletoService = boletoService;
         this.pagamentoRepository = pagamentoRepository;
         this.produtoService = produtoService;
         this.itemPedidoRepository = itemPedidoRepository;
         this.clienteService = clienteService;
+        this.emailService = emailService;
     }
 
     public Pedido findPedido(Integer id) {
@@ -70,7 +74,7 @@ public class PedidoService {
         }
 
         itemPedidoRepository.saveAll(obj.getItens());
-        System.out.println(obj);
+        emailService.sendOrderConfirmationEmail(obj);
         return  obj;
 
     }
