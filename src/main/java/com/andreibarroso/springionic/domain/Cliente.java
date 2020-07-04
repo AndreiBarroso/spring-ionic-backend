@@ -3,10 +3,8 @@ package com.andreibarroso.springionic.domain;
 import com.andreibarroso.springionic.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;

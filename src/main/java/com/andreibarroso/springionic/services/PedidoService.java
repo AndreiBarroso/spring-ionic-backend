@@ -1,10 +1,12 @@
 package com.andreibarroso.springionic.services;
 
+import com.andreibarroso.springionic.domain.Cliente;
 import com.andreibarroso.springionic.domain.ItemPedido;
 import com.andreibarroso.springionic.domain.PagamentoComBoleto;
 import com.andreibarroso.springionic.domain.Pedido;
 import com.andreibarroso.springionic.domain.enums.EstadoPagamento;
 import com.andreibarroso.springionic.exceptions.ObjectNotFoundException;
+import com.andreibarroso.springionic.repositories.ClienteRepository;
 import com.andreibarroso.springionic.repositories.ItemPedidoRepository;
 import com.andreibarroso.springionic.repositories.PagamentoRepository;
 import com.andreibarroso.springionic.repositories.PedidoRepository;
@@ -27,12 +29,15 @@ public class PedidoService {
 
     private final PagamentoRepository pagamentoRepository;
 
-    public PedidoService (ItemPedidoRepository itemPedidoRepository, ProdutoService produtoService, BoletoService boletoService, PedidoRepository pedidoRepository, PagamentoRepository pagamentoRepository) {
+    private ClienteService clienteService;
+
+    public PedidoService (ClienteService clienteService, ItemPedidoRepository itemPedidoRepository, ProdutoService produtoService, BoletoService boletoService, PedidoRepository pedidoRepository, PagamentoRepository pagamentoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.boletoService = boletoService;
         this.pagamentoRepository = pagamentoRepository;
         this.produtoService = produtoService;
         this.itemPedidoRepository = itemPedidoRepository;
+        this.clienteService = clienteService;
     }
 
     public Pedido findPedido(Integer id) {
@@ -45,6 +50,7 @@ public class PedidoService {
     public Pedido insert(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteService.findCliente(obj.getCliente().getId()));
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
         if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -54,16 +60,18 @@ public class PedidoService {
 
         obj = pedidoRepository.save(obj);
         pagamentoRepository.save(obj.getPagamento());
-                for (ItemPedido ip : obj.getItens()) {
-                    ip.setDesconto(0.0);
-                    ip.setProduto(produtoService.findPedido(ip.getProduto().getId()));
-                    ip.setPreco(ip.getProduto().getPreco());
-                    ip.setPedido(obj);
+        for (ItemPedido ip : obj.getItens()) {
+            ip.setDesconto(0.0);
 
-                }
+            ip.setProduto(produtoService.findPedido(ip.getProduto().getId()));
+            ip.setPreco(ip.getProduto().getPreco());
+            ip.setPedido(obj);
 
-                itemPedidoRepository.saveAll(obj.getItens());
-                return  obj;
+        }
+
+        itemPedidoRepository.saveAll(obj.getItens());
+        System.out.println(obj);
+        return  obj;
 
     }
 }
