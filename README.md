@@ -1,4 +1,4 @@
-Este projeto ainda está em desenvolvimento, possui escalabilidade. Inicialmente foi elaborado para atender lojas de varejo anunciar e comercializar seus produtos, porém pode ser adaptado para outros requisitos, está API terá o front-end com Angular usando os componentes visuais do Ionic e o processo de build para Android com publicação no PlayStore.
+Este projeto ainda está em desenvolvimento, possui projeção para a escalabilidade. Inicialmente foi elaborado para atender lojas de varejo anunciar e comercializar seus produtos, porém pode ser adaptado para outros requisitos, está API terá o front-end com Angular usando os componentes visuais do Ionic e o processo de build para Android com publicação no PlayStore.
 
 VISÃO TÉCNICA - BACK END
 
