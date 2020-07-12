@@ -1,9 +1,9 @@
 package com.andreibarroso.springionic.config;
 
-
 import java.util.Arrays;
 
 import com.andreibarroso.springionic.security.JWTAuthenticationFilter;
+import com.andreibarroso.springionic.security.JWTAuthorizationFilter;
 import com.andreibarroso.springionic.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 
 @Configuration
 @EnableWebSecurity
@@ -41,13 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
 			"/categorias/**",
-			"/clientes**"
+			"/clientes/**"
 	};
 
-	/*
-	configuração de  permissões
-	 */
 
+	/*
+	configurações e sua autorizações
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -61,21 +62,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(PUBLIC_MATCHERS).permitAll()
 				.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
-	/*
-	configuraçaõ do JWT
-	 */
-
-	public void configure(AuthenticationManagerBuilder auth)  throws Exception {
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
-
-
-	/*
-	configuração do cors
-	 */
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
@@ -85,13 +79,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	/*
-	Bean para encriptar senha passada pelo cliente
+	encriptação da senha
 	 */
-
 	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder () {
-		return  new BCryptPasswordEncoder();
-
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
-
 }
+

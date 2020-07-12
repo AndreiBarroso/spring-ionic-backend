@@ -103,7 +103,7 @@ public class DBService {
 		cli2.addPerfil(Perfil.ADMIN);
 
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
-		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "3autenticação8777012", cli1, c2);
 		Endereco e3 = new Endereco(null, "Rua amendoerias", "105", "Sala 800", "Centro", "23045450", cli2, c2);
 
 
