@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,6 +36,7 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(obj);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> criar (@RequestBody @Valid CategoriaDTO objDto) {
 
@@ -45,7 +47,7 @@ public class CategoriaResource {
         return ResponseEntity.created(uri).build();
     }
 
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> atualizar (@Valid @PathVariable Integer id, @RequestBody CategoriaDTO objDto) {
         if (!categoriaRepository.existsById(id)) {
@@ -58,6 +60,7 @@ public class CategoriaResource {
         return ResponseEntity.ok(obj);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete (@PathVariable Integer id){
         if(!categoriaRepository.existsById(id)) {
