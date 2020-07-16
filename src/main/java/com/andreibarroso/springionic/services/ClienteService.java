@@ -4,14 +4,17 @@ package com.andreibarroso.springionic.services;
 import com.andreibarroso.springionic.domain.Cidade;
 import com.andreibarroso.springionic.domain.Cliente;
 import com.andreibarroso.springionic.domain.Endereco;
+import com.andreibarroso.springionic.domain.enums.Perfil;
 import com.andreibarroso.springionic.domain.enums.TipoCliente;
 import com.andreibarroso.springionic.dto.ClienteDTO;
 import com.andreibarroso.springionic.dto.ClienteNewDTO;
+import com.andreibarroso.springionic.exceptions.AuthorizationException;
 import com.andreibarroso.springionic.exceptions.DateIntegrityException;
 import com.andreibarroso.springionic.exceptions.ObjectNotFoundException;
 import com.andreibarroso.springionic.repositories.CidadeRepository;
 import com.andreibarroso.springionic.repositories.ClienteRepository;
 import com.andreibarroso.springionic.repositories.EnderecoRepository;
+import com.andreibarroso.springionic.security.UserSS;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,6 +42,12 @@ public class ClienteService {
     }
 
     public Cliente findCliente (Integer id) {
+        UserSS user = UserService.authenticated();
+        if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+            throw  new AuthorizationException("Acesso negado");
+        }
+
+
         Optional<Cliente> obj = clienteRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
