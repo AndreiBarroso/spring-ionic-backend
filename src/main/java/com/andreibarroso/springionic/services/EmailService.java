@@ -1,5 +1,6 @@
 package com.andreibarroso.springionic.services;
 
+import com.andreibarroso.springionic.domain.Cliente;
 import com.andreibarroso.springionic.domain.Pedido;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -14,6 +15,8 @@ public interface EmailService {
 	void sendOrderConfirmationHtmlEmail(Pedido obj);
 
 	void sendHtmlEmail(MimeMessage msg);
+
+	void sendNewPasswordEmail(Cliente cliente, String newPass);
 }
 
 
