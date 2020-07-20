@@ -70,7 +70,7 @@ public abstract class AbstractEmailService implements EmailService {
 		return mimeMessage;
 	}
 
-	@Async
+
 	@Override
 	public void sendNewPasswordEmail(Cliente cliente, String newPass) {
 		SimpleMailMessage sm = prepareNewPasswordEmail(cliente, newPass);
@@ -84,7 +84,7 @@ public abstract class AbstractEmailService implements EmailService {
 		sm.setFrom(sender);
 		sm.setSubject("Solicitação de nova senha ");
 		sm.setSentDate(new Date(System.currentTimeMillis()));
-		sm.setText("Nova senha" + newPass);
+		sm.setText("Nova senha:   " + newPass);
 		return sm;
 
 	}
