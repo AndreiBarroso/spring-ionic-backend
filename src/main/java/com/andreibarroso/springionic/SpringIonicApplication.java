@@ -10,8 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringIonicApplication implements CommandLineRunner {
 
-	@Autowired
-	private S3Service s3Service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringIonicApplication.class, args);
@@ -20,7 +18,6 @@ public class SpringIonicApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		s3Service.uploadFile("/home/andreib/Área de Trabalho/fotos/manjaro-welcome-icon.png");
 
 	}
 }
