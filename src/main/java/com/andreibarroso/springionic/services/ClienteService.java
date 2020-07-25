@@ -15,6 +15,7 @@ import com.andreibarroso.springionic.repositories.CidadeRepository;
 import com.andreibarroso.springionic.repositories.ClienteRepository;
 import com.andreibarroso.springionic.repositories.EnderecoRepository;
 import com.andreibarroso.springionic.security.UserSS;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -39,12 +41,17 @@ public class ClienteService {
 
     private S3Service s3Service;
 
-    public ClienteService (S3Service s3Service, BCryptPasswordEncoder bCryptPasswordEncoder,  ClienteRepository clienteRepository, EnderecoRepository enderecoRepository) {
+    private ImageService imageService;
+
+    @Value("${img.prefix.client.profile}")
+    private String prefix;
+
+    public ClienteService (ImageService imageService, S3Service s3Service, BCryptPasswordEncoder bCryptPasswordEncoder,  ClienteRepository clienteRepository, EnderecoRepository enderecoRepository) {
         this.clienteRepository = clienteRepository;
         this.enderecoRepository = enderecoRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.s3Service = s3Service;
-
+        this.imageService = imageService;
     }
 
     public Cliente findCliente (Integer id) {
@@ -128,18 +135,18 @@ public class ClienteService {
 
     public URI uploadProfilePicture (MultipartFile multipartFile) {
 
+        /*
+        verificar se o usuario esta logado
+         */
         UserSS user = UserService.authenticated();
         if (user == null ) {
             throw  new AuthorizationException("Acesso negado");
         }
-        URI uri =  s3Service.uploadFile(multipartFile);
 
-        Cliente cli = findCliente(user.getId());
-        cli.setImageUrl(uri.toString ());
-        clienteRepository.save(cli);
+        BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+        String filename = prefix + user.getId() + ".jpg";
 
-        return uri;
-
+        return  s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), filename, "image");
 
     }
 
