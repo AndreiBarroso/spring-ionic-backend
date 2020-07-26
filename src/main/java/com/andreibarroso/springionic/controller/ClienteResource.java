@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,6 +31,14 @@ public class ClienteResource {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Cliente> buscarClientePorId (@PathVariable Integer id) {
         Cliente cliente1 = clienteService.findCliente(id);
+
+        return ResponseEntity.ok().body(cliente1);
+
+    }
+
+    @GetMapping(value = "/email")
+    public ResponseEntity<Cliente> buscarClientePorEmail (@RequestParam(value = "find") String email) {
+      Cliente cliente1 = clienteService.findByEmail(email);
 
         return ResponseEntity.ok().body(cliente1);
 

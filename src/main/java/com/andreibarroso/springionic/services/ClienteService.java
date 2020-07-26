@@ -11,7 +11,6 @@ import com.andreibarroso.springionic.dto.ClienteNewDTO;
 import com.andreibarroso.springionic.exceptions.AuthorizationException;
 import com.andreibarroso.springionic.exceptions.DateIntegrityException;
 import com.andreibarroso.springionic.exceptions.ObjectNotFoundException;
-import com.andreibarroso.springionic.repositories.CidadeRepository;
 import com.andreibarroso.springionic.repositories.ClienteRepository;
 import com.andreibarroso.springionic.repositories.EnderecoRepository;
 import com.andreibarroso.springionic.security.UserSS;
@@ -98,6 +97,21 @@ public class ClienteService {
         return  clienteRepository.findAll();
     }
 
+    public Cliente findByEmail(String email) {
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
+        Cliente obj = clienteRepository.findByEmail(email);
+        if (obj == null) {
+            throw new ObjectNotFoundException(
+                    "Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+        }
+        return obj;
+    }
+
+
     /*
     método para paginação
      */
@@ -156,6 +170,9 @@ public class ClienteService {
         return  s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), filename, "image");
 
     }
+
+
+
 
 }
 
