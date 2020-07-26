@@ -1,7 +1,6 @@
 package com.andreibarroso.springionic.controller;
 
 import com.andreibarroso.springionic.domain.Categoria;
-import com.andreibarroso.springionic.repositories.CategoriaRepository;
 import com.andreibarroso.springionic.services.CategoriaService;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
@@ -51,7 +50,6 @@ class CategoriaResourceTest {
 				then().statusCode(201);
 
 	}
-
 
 	@Test
 	public void testeBuscar () {
