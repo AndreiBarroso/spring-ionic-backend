@@ -3,8 +3,6 @@ package com.andreibarroso.springionic.services;
 import com.andreibarroso.springionic.domain.Cliente;
 import com.andreibarroso.springionic.domain.Pedido;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.scheduling.annotation.Async;
-
 import javax.mail.internet.MimeMessage;
 
 public interface EmailService {
@@ -17,7 +15,6 @@ public interface EmailService {
 
 	void sendHtmlEmail(MimeMessage msg);
 
-	@Async
 	void sendNewPasswordEmail(Cliente cliente, String newPass);
 }
 

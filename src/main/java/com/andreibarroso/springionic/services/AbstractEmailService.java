@@ -26,6 +26,7 @@ public abstract class AbstractEmailService implements EmailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 
+	@Async
 	@Override
 	public void sendOrderConfirmationEmail(Pedido obj) {
 		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(obj);
@@ -48,6 +49,7 @@ public abstract class AbstractEmailService implements EmailService {
 		return templateEngine.process("email/confirmacaoPedido", context);
 	}
 
+	@Async
 	@Override
 	public void sendOrderConfirmationHtmlEmail(Pedido obj) {
 		try {
@@ -70,7 +72,7 @@ public abstract class AbstractEmailService implements EmailService {
 		return mimeMessage;
 	}
 
-
+	@Async
 	@Override
 	public void sendNewPasswordEmail(Cliente cliente, String newPass) {
 		SimpleMailMessage sm = prepareNewPasswordEmail(cliente, newPass);

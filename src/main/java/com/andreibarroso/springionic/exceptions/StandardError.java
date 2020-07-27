@@ -7,13 +7,18 @@ import java.io.Serializable;
 @Data
 public class StandardError implements Serializable {
 
+    private Long timestamp;
     private Integer status;
-    private String msg;
-    private Long timeStamp;
+    private String error;
+    private String message;
+    private String path;
 
-    public StandardError(Integer status, String msg, Long timeStamp) {
+    public StandardError(Long timestamp, Integer status, String error, String message, String path) {
+        super();
+        this.timestamp = timestamp;
         this.status = status;
-        this.msg = msg;
-        this.timeStamp = timeStamp;
+        this.error = error;
+        this.message = message;
+        this.path = path;
     }
 }
